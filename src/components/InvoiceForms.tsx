@@ -520,8 +520,8 @@ function InvoiceFormLoaded({
           ) : null}
           <div className="space-y-4">
             <div className="hidden sm:grid grid-cols-12 gap-4 items-center text-[#7E88C3] text-sm font-bold">
-              <div className="col-span-5">Item Name</div>
-              <div className="col-span-2">Qty.</div>
+              <div className="col-span-3">Item Name</div>
+              <div className="col-span-3 ">Qty.</div>
               <div className="col-span-2">Price</div>
               <div className="col-span-2 text-right">Total</div>
               <div className="col-span-1" />
@@ -533,7 +533,7 @@ function InvoiceFormLoaded({
               return (
                 <div
                   key={row.id}
-                  className=" flex flex-row gap-6 justify-between border border-[#DFE3FA] dark:border-slate-700 rounded-lg p-4 sm:border-0 sm:p-0"
+                  className=" flex flex-row gap-4 justify-between border border-[#DFE3FA] dark:border-slate-700 rounded-lg p-4 sm:border-0 sm:p-0"
                 >
                   <div className="">
                     <label className="text-[#7E88C3] text-xs sm:hidden block mb-1">
@@ -566,12 +566,28 @@ function InvoiceFormLoaded({
                     ) : null}
                   </div>
 
-                  <div className=" w-[100%] font-bold text-[#0C0E16] dark:text-white sm:pt-3">
+                  <div className="">
+                    <label className="text-[#7E88C3] text-xs sm:hidden block mb-1">Price</label>
+                    <input
+                      type="number"
+                      min={0}
+                      step="0.01"
+                      value={row.price}
+                      onChange={(e) => updateRow(row.id, { price: e.target.value })}
+                      className={inputClass(errors[`price_${row.id}`])} 
+                      aria-invalid={!!errors[`price_${row.id}`]}
+                    />
+                    {errors[`price_${row.id}`] ? (
+                      <p className="text-red-600 text-xs mt-1">{errors[`price_${row.id}`]}</p>
+                    ) : null}
+                  </div>
+
+                  <div className=" font-bold text-[#0C0E16] dark:text-white  w-[40%]">
                     <span className="sm:hidden text-[#7E88C3] text-xs block mb-1 text-center">
                       Total
                     </span>
 
-                    <div className="text-center mt-4 text-[#888EB0] text-lg">
+                    <div className="text-center mt-4 text-[#888EB0] text-[15px] sm:text-lg">
                       {formatMoney(line)}
                     </div>
 
