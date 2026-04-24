@@ -50,7 +50,7 @@ export default function Sidebar() {
         <div className="relative h-[72px] shrink-0 bg-transparent dark:bg-[#1E2139]">
           <div className="absolute left-0 top-0 z-20 h-[100px] w-[100px] rounded-r-3xl bg-[#7C5DFA] ">
             <div className="absolute left-1/2 top-8 h-0 w-0 -translate-x-1/2 rotate-180 border-x-transparent border-b-[#7C5DFA] border-x-[10px] border-b-[22px] z-40" />
-            <div className="absolute bottom-8 left-1/2 z-30 h-9 w-9 -translate-x-1/2 rounded-full bg-white dark:bg-[#1E2139] " />
+            <div className="absolute bottom-8 left-1/2 z-30 h-9 w-9 -translate-x-1/2 rounded-full bg-white " />
             <div className="absolute bottom-0 left-0 right-0 h-1/2 rounded-br-3xl rounded-tl-3xl bg-[#9277FF]" />
           </div>
         </div>
