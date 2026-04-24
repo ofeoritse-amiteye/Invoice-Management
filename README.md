@@ -35,16 +35,16 @@ npm run lint
 ## Architecture explanation
 
 - **Entry:** `index.html` loads `src/main.tsx`, which mounts `<App />` under `#root` and imports global styles (`src/globals.css`).
-- **App shell:** `src/App.tsx` wraps the tree in `Providers` (`ThemeProvider` → `InvoiceProvider`) then renders `InvoiceDashboard`.
+- **App shell:** `src/App.tsx` wraps the tree in `Providers` (`ThemeProvider` → `InvoiceProvider`) then renders the main **`InvoiceListPage`** shell.
 - **State & data:**
   - **`InvoiceContext`** (`src/context/InvoiceContext.tsx`) holds the invoice list, hydration flag, and mutations (add, replace, delete, mark paid). On first load it reads from storage and can seed demo data when empty.
   - **`ThemeContext`** (`src/context/ThemeContext.tsx`) holds light/dark mode and syncs preference to `localStorage`.
   - **`src/lib/invoices-storage.ts`** serializes/deserializes invoices to a single `localStorage` key; `src/lib/format.ts` and `src/lib/id.ts` handle display formatting and IDs.
 - **UI layers:**
-  - **`InvoiceDashboard`** — list vs detail vs form orchestration, status filter state, delete modal trigger.
-  - **`CreateEdit`** — full-screen/slide-over invoice form; separate validation paths for **draft** vs **save & send**.
-  - **`viewInvoice`** — read-only detail view with actions (edit, delete, mark paid when pending).
-  - **`InvoiceStatusFilter`** — checkbox filter (All + per-status); **`StatusBadge`** — shared status pill for list and detail.
+  - **`InvoiceListPage`** — list vs detail vs form orchestration, status filter state, delete modal trigger.
+  - **`InvoiceForms`** — full-screen/slide-over invoice form; separate validation paths for **draft** vs **save & send**.
+  - **`InvoiceDetailsPage`** — read-only detail view with actions (edit, delete, mark paid when pending).
+  - **`InvoiceFilter`** — checkbox filter (All + per-status); **`StatusBadge`** — shared status pill for list and detail.
   - **`modals`** — delete confirmation dialog.
 - **Styling:** Tailwind CSS v4 via `@tailwindcss/vite`; dark mode uses a `.dark` class on the document root (see theme context).
 
@@ -72,6 +72,11 @@ The brief mentions **IndexedDB** or a **backend** as alternatives; this project 
 
 ---
 
+## Improvements beyond requirements
+
+- **Explicit “All” filter** alongside Draft / Pending / Paid, with checkbox multi-select (list shows invoices matching **any** selected status) and a dedicated **empty state** when nothing matches.
+
+
 ## Stack (quick reference)
 
 - **React 19**, **TypeScript**, **Vite 7**
@@ -81,7 +86,7 @@ The brief mentions **IndexedDB** or a **backend** as alternatives; this project 
 ## Project layout (files)
 
 - `src/App.tsx` — root + providers
-- `src/components/` — dashboard, form, detail, modals, `StatusBadge`, `InvoiceStatusFilter`, sidebar, UI widgets
+- `src/components/` — list page, form, detail page, modals, `StatusBadge`, `InvoiceFilter`, sidebar, UI widgets
 - `src/context/` — theme + invoices
 - `src/lib/` — storage, ids, formatting
 - `public/` — static assets (`fallback.svg`, optional `public/images/ME.jpg`)
