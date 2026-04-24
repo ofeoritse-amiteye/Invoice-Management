@@ -26,13 +26,7 @@ function readStoredTheme(): Theme | null {
 }
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setTheme] = useState<Theme>("light");
-
-  useEffect(() => {
-    queueMicrotask(() => {
-      setTheme(readStoredTheme() ?? "light");
-    });
-  }, []);
+  const [theme, setTheme] = useState<Theme>(() => readStoredTheme() ?? "light");
 
   useEffect(() => {
     if (typeof document === "undefined") return;
