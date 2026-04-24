@@ -1,11 +1,11 @@
 import { useMemo, useState } from "react";
 import Sidebar from "@/src/components/sidebar";
-import InvoiceForm from "@/src/components/CreateEdit";
-import InvoiceDetail from "@/src/components/viewInvoice";
+import InvoiceForm from "@/src/components/InvoiceForms";
+import InvoiceDetail from "@/src/components/InvoiceDetailsPage";
 import DeleteModal from "@/src/components/modals";
 import InvoiceStatusFilter, {
   type StatusFilterState,
-} from "@/src/components/InvoiceStatusFilter";
+} from "@/src/components/InvoiceFilter";
 import StatusBadge from "@/src/components/StatusBadge";
 import { useInvoices } from "@/src/context/InvoiceContext";
 import type { Invoice, InvoiceStatus } from "@/src/types/invoice";

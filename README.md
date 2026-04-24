@@ -20,10 +20,10 @@ Open the URL printed in the terminal (typically [http://localhost:5173](http://l
 Other scripts:
 
 ```bash
-npm run build      # production build → dist/
-npm run preview    # serve dist/ locally
-npm run typecheck  # TypeScript check (no emit)
-npm run lint       # ESLint
+npm run build 
+npm run preview    
+npm run typecheck 
+npm run lint      
 ```
 
 **Optional asset:** the sidebar expects a profile image at `public/images/ME.jpg`. Add that file, or replace the paths in `src/components/sidebar.tsx`.
@@ -48,8 +48,6 @@ npm run lint       # ESLint
   - **`modals`** — delete confirmation dialog.
 - **Styling:** Tailwind CSS v4 via `@tailwindcss/vite`; dark mode uses a `.dark` class on the document root (see theme context).
 
-Path alias **`@/*`** maps to the project root (see `vite.config.ts` and `tsconfig.json`).
-
 ---
 
 ## Trade-offs
@@ -62,7 +60,7 @@ Path alias **`@/*`** maps to the project root (see `vite.config.ts` and `tsconfi
 | **Stricter validation on “Save & send” than on “Save as draft”** | Drafts can be incomplete; sending implies a complete invoice. | Users must understand two save paths in create mode. |
 | **Single-page dashboard** (list/detail/form in one route) | Fewer moving parts than React Router pages for this scope. | URL does not reflect “which invoice” is open (could add hash/query later). |
 
-The brief mentions **IndexedDB** or a **backend** as alternatives; this project intentionally chose **localStorage** for simplicity unless you later add sync or a small API.
+The brief mentions **IndexedDB** or a **backend** as alternatives; this project intentionally chose **localStorage** for simplicity.
 
 ---
 
@@ -71,20 +69,6 @@ The brief mentions **IndexedDB** or a **backend** as alternatives; this project 
 - **Forms:** Primary fields use `<label htmlFor="…">` paired with matching `id` on inputs; invalid fields set `aria-invalid` and show visible error text.
 - **Delete modal:** Uses `role="dialog"`, `aria-modal="true"`, `aria-labelledby` / `aria-describedby`; **Escape** closes the dialog; **Tab** cycles focus between controls inside the dialog; focus returns to the previously focused element on close.
 - **Interactive controls:** Theme toggle and main actions use native **`<button type="button">`** where appropriate.
-- **Contrast:** Palette follows the Figma-inspired invoice UI with distinct text and surface colors in both light and dark themes; a formal WCAG audit was not run as part of this README—spot-check critical text if compliance must be proven.
-
-Known gaps to improve later: focus management on the invoice **form** panel when it opens, live regions for dynamic filter results, and full keyboard paths through every custom control (e.g. date picker / custom dropdowns).
-
----
-
-## Improvements beyond requirements
-
-- **Explicit “All” filter** alongside Draft / Pending / Paid, with multi-select semantics (“any selected status”) and an empty state when nothing matches.
-- **Reusable `StatusBadge` and `InvoiceStatusFilter`** components instead of inlining status styles and filter markup everywhere.
-- **Draft vs send validation:** looser rules when saving a draft; full required-field + email + line-item checks when sending or saving edits that must stay consistent.
-- **Theme persistence** in `localStorage` so preference survives reload.
-- **TypeScript + ESLint** (including hooks rules) for safer refactors.
-- **Vite** for a fast dev server and a straightforward production bundle.
 
 ---
 
